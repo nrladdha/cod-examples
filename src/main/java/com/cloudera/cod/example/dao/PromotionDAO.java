@@ -22,6 +22,19 @@ public class PromotionDAO {
         this.connection = connection;
     }
     
+    public void createSchema() throws SQLException {
+        String createSchemaSQL = "CREATE SCHEMA IF NOT EXISTS TEST1" ;
+        
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createSchemaSQL);
+            connection.commit();
+            logger.info("TEST1 schema created successfully");
+        } catch (SQLException e) {
+            connection.rollback();
+            logger.error("Failed to create TEST1 schema", e);
+            throw e;
+        }
+    }
     /**
      * Create the PROMOTIONS table in Phoenix
      * Table structure:
