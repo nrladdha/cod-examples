@@ -19,6 +19,7 @@ public class PhoenixConnectionManager {
     
     // Phoenix JDBC driver class
     private static final String PHOENIX_DRIVER = "org.apache.phoenix.jdbc.PhoenixDriver";
+    private static final String PHOENIX_THIN_DRIVER = "org.apache.phoenix.jdbc.PhoenixDriver";
    
     private static String jdbcUrl;
     
@@ -31,7 +32,10 @@ public class PhoenixConnectionManager {
             jdbcUrl = props.getProperty("cod.jdbc.url");
 
             // Load Phoenix JDBC driver
-            Class.forName(PHOENIX_DRIVER);
+            if(jdbcUrl.contains("thin"))
+                Class.forName(PHOENIX_DRIVER);
+            else
+                Class.forName(PHOENIX_DRIVER);
             logger.info("Phoenix JDBC driver loaded successfully");
         } catch (ClassNotFoundException e) {
             logger.error("Failed to load Phoenix JDBC driver", e);
