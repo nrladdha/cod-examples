@@ -1,0 +1,5 @@
+# Input data file for promotions
+# Format: "custId","promotions_json_with_csv_escaping"
+# The JSON string is escaped for CSV format with """" for quotes
+
+"049566723","""[{""""account_number"""":""""000000004932073"""",""""s_no"""":47276322,""""product_id"""":""""PR3238"""",""""offer_details"""":[{""""offer_id"""":""""OFFER3710"""",""""l1_eligibility"""":""""TRUE"""",""""l2_eligibility"""":""""FALSE"""",""""eligibility_date"""":""""2025-08-09"""",""""eligibility_tier"""":""""l2"""",""""offer_active"""":""""no"""",""""other_attribute_names"""":""""other_attribute_names"""",""""other_attribute_values"""":""""other_attribute_values"""",""""eligibility_end_date"""":""""test"""",""""knockoff_reason"""":""""knockoff""""}]}]"""
