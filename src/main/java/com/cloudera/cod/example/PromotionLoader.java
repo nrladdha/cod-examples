@@ -38,6 +38,14 @@ public class PromotionLoader {
         Connection connection = null;
         
         try {
+            // Configuration
+            int startCustId = args.length > 0 ? Integer.parseInt(args[0]) : 1;
+            int custVolume = args.length > 1 ? Integer.parseInt(args[1]) : 1000000;
+
+            logger.info("=== Promotion loader starts  ===");
+            logger.info("Start cust_id : "+ startCustId);
+            logger.info("Data volume to be loaded : "+custVolume);
+            logger.info("=".repeat(80));
             // Step 1: Establish connection to Phoenix
             logger.info("=== Step 1: Connecting to Apache Phoenix ===");
             connection = PhoenixConnectionManager.getConnection();
@@ -78,9 +86,10 @@ public class PromotionLoader {
 
             int batchSize = 10000;
             List<Promotion> promotionList = new ArrayList<>(batchSize);
-            int custId = 5000001;
+            int custId = 1000001;
             Promotion p = null;
             int insertedCount = 0;
+            int totalCount=0;
             for (int batch = 1; batch <= 500; batch++){
                 for (int ct = 1; ct <= batchSize; ct++) {
                     promotionList.add(new Promotion(StringUtils.leftPad(Integer.toString(custId), 9, "0"), promoStr));
@@ -89,9 +98,12 @@ public class PromotionLoader {
                 insertedCount = promotionDAO.insertPromotionBatch(promotionList);
                 logger.info("Batch no : {} , inserted {} promotions", batch, insertedCount);
                 promotionList.clear();
+                totalCount=totalCount+insertedCount;
 
             }
-     
+            logger.info("End cust_id : "+ custId);
+            logger.info("Data volume loaded : "+totalCount);
+            logger.info("=".repeat(80));
             
 //            // Step 6: Read single promotion by ID
 //            logger.info("\n=== Step 6: Reading promotion by customer ID ===");
@@ -111,6 +123,7 @@ public class PromotionLoader {
             if (connection != null) {
                 PhoenixConnectionManager.closeConnection(connection);
             }
+
         }
     }
     
