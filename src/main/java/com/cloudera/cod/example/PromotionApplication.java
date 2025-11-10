@@ -42,6 +42,7 @@ public class PromotionApplication {
             // Step 2: Create table
           
                 logger.info("\n=== Step 2: Creating PROMOTIONS table ===");
+                promotionDAO.createSchema();
                 promotionDAO.createTable();
                 logger.info("Table structure: CUST_ID VARCHAR(9) PRIMARY KEY, PROMOTIONS VARCHAR");
          
