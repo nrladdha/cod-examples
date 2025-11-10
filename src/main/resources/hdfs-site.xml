@@ -16,43 +16,43 @@
   </property>
   <property>
     <name>ha.zookeeper.quorum</name>
-    <value>cod--1tk93a9ibw258-leader0.se-sandb.a465-9q4k.cloudera.site:2182,cod--1tk93a9ibw258-master1.se-sandb.a465-9q4k.cloudera.site:2182,cod--1tk93a9ibw258-master0.se-sandb.a465-9q4k.cloudera.site:2182</value>
+    <value>cod--xkqqx865u1bl-master0.ps-sandb.a465-9q4k.cloudera.site:2182,cod--xkqqx865u1bl-master1.ps-sandb.a465-9q4k.cloudera.site:2182,cod--xkqqx865u1bl-leader0.ps-sandb.a465-9q4k.cloudera.site:2182</value>
   </property>
   <property>
     <name>dfs.ha.namenodes.ns1</name>
-    <value>namenode1546337102,namenode1546337066</value>
+    <value>namenode1546336770,namenode1546336803</value>
   </property>
   <property>
-    <name>dfs.namenode.rpc-address.ns1.namenode1546337102</name>
-    <value>cod--1tk93a9ibw258-master0.se-sandb.a465-9q4k.cloudera.site:8020</value>
+    <name>dfs.namenode.rpc-address.ns1.namenode1546336770</name>
+    <value>cod--xkqqx865u1bl-master0.ps-sandb.a465-9q4k.cloudera.site:8020</value>
   </property>
   <property>
-    <name>dfs.namenode.servicerpc-address.ns1.namenode1546337102</name>
-    <value>cod--1tk93a9ibw258-master0.se-sandb.a465-9q4k.cloudera.site:8022</value>
+    <name>dfs.namenode.servicerpc-address.ns1.namenode1546336770</name>
+    <value>cod--xkqqx865u1bl-master0.ps-sandb.a465-9q4k.cloudera.site:8022</value>
   </property>
   <property>
-    <name>dfs.namenode.http-address.ns1.namenode1546337102</name>
-    <value>cod--1tk93a9ibw258-master0.se-sandb.a465-9q4k.cloudera.site:9870</value>
+    <name>dfs.namenode.http-address.ns1.namenode1546336770</name>
+    <value>cod--xkqqx865u1bl-master0.ps-sandb.a465-9q4k.cloudera.site:9870</value>
   </property>
   <property>
-    <name>dfs.namenode.https-address.ns1.namenode1546337102</name>
-    <value>cod--1tk93a9ibw258-master0.se-sandb.a465-9q4k.cloudera.site:9871</value>
+    <name>dfs.namenode.https-address.ns1.namenode1546336770</name>
+    <value>cod--xkqqx865u1bl-master0.ps-sandb.a465-9q4k.cloudera.site:9871</value>
   </property>
   <property>
-    <name>dfs.namenode.rpc-address.ns1.namenode1546337066</name>
-    <value>cod--1tk93a9ibw258-master1.se-sandb.a465-9q4k.cloudera.site:8020</value>
+    <name>dfs.namenode.rpc-address.ns1.namenode1546336803</name>
+    <value>cod--xkqqx865u1bl-master1.ps-sandb.a465-9q4k.cloudera.site:8020</value>
   </property>
   <property>
-    <name>dfs.namenode.servicerpc-address.ns1.namenode1546337066</name>
-    <value>cod--1tk93a9ibw258-master1.se-sandb.a465-9q4k.cloudera.site:8022</value>
+    <name>dfs.namenode.servicerpc-address.ns1.namenode1546336803</name>
+    <value>cod--xkqqx865u1bl-master1.ps-sandb.a465-9q4k.cloudera.site:8022</value>
   </property>
   <property>
-    <name>dfs.namenode.http-address.ns1.namenode1546337066</name>
-    <value>cod--1tk93a9ibw258-master1.se-sandb.a465-9q4k.cloudera.site:9870</value>
+    <name>dfs.namenode.http-address.ns1.namenode1546336803</name>
+    <value>cod--xkqqx865u1bl-master1.ps-sandb.a465-9q4k.cloudera.site:9870</value>
   </property>
   <property>
-    <name>dfs.namenode.https-address.ns1.namenode1546337066</name>
-    <value>cod--1tk93a9ibw258-master1.se-sandb.a465-9q4k.cloudera.site:9871</value>
+    <name>dfs.namenode.https-address.ns1.namenode1546336803</name>
+    <value>cod--xkqqx865u1bl-master1.ps-sandb.a465-9q4k.cloudera.site:9871</value>
   </property>
   <property>
     <name>dfs.replication</name>
@@ -120,15 +120,15 @@
   </property>
   <property>
     <name>dfs.namenode.kerberos.principal</name>
-    <value>hdfs/_HOST@SE-SANDB.A465-9Q4K.CLOUDERA.SITE</value>
+    <value>hdfs/_HOST@PS-SANDB.A465-9Q4K.CLOUDERA.SITE</value>
   </property>
   <property>
     <name>dfs.namenode.kerberos.internal.spnego.principal</name>
-    <value>HTTP/_HOST@SE-SANDB.A465-9Q4K.CLOUDERA.SITE</value>
+    <value>HTTP/_HOST@PS-SANDB.A465-9Q4K.CLOUDERA.SITE</value>
   </property>
   <property>
     <name>dfs.datanode.kerberos.principal</name>
-    <value>hdfs/_HOST@SE-SANDB.A465-9Q4K.CLOUDERA.SITE</value>
+    <value>hdfs/_HOST@PS-SANDB.A465-9Q4K.CLOUDERA.SITE</value>
   </property>
   <property>
     <name>dfs.http.policy</name>
