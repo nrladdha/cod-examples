@@ -46,15 +46,25 @@ public class PhoenixConnectionManager {
         }
     }
 
-
     /**
-     * Get a connection to Phoenix using the default JDBC URL
+     * Get a connection to Phoenix using the default JDBC URL with autocommit enabled
      * 
      * @return Connection object
      * @throws SQLException if connection fails
      */
+    public static Connection getConnection() throws SQLException {
+        return getConnection(jdbcUrl, true);
+    }
+
+    /**
+     * Get a connection to Phoenix using the default JDBC URL
+     * 
+     * @param autocommit enable/disable autocommit
+     * @return Connection object
+     * @throws SQLException if connection fails
+     */
     public static Connection getConnection(boolean autocommit) throws SQLException {
-         return getConnection(jdbcUrl,autocommit);
+         return getConnection(jdbcUrl, autocommit);
     }
 
 
