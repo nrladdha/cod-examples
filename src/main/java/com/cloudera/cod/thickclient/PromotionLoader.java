@@ -1,4 +1,4 @@
-package com.cloudera.cod.example;
+package com.cloudera.cod.thickclient;
 
 import com.cloudera.cod.example.dao.PromotionDAO;
 import com.cloudera.cod.example.model.Promotion;
@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,6 +15,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import static java.lang.System.exit;
 
 /**
  * Main application demonstrating Apache Phoenix thick client operations
@@ -42,10 +43,22 @@ public class PromotionLoader {
             int startCustId = args.length > 0 ? Integer.parseInt(args[0]) : 1;
             int custVolume = args.length > 1 ? Integer.parseInt(args[1]) : 1000000;
 
+
             logger.info("=== Promotion loader starts  ===");
             logger.info("Start cust_id : "+ startCustId);
             logger.info("Data volume to be loaded : "+custVolume);
             logger.info("=".repeat(80));
+
+            Scanner scanner = new Scanner(System.in); // Reading from System.in
+            System.out.println("Do you want to proceed : [y/n] : ");
+            String userContirmation = scanner.next(); // Scans the next token of the input as an int
+            scanner.close();
+            if (! userContirmation.toLowerCase().equals("y")){
+                System.out.println("Existing from program");
+                exit(0);
+            }
+
+
             // Step 1: Establish connection to Phoenix
             logger.info("=== Step 1: Connecting to Apache Phoenix ===");
             connection = PhoenixConnectionManager.getConnection();
@@ -79,18 +92,19 @@ public class PromotionLoader {
             String promoStr = reader.readLine();
             logger.info("\npromoStr :"+promoStr);
             if ((promoStr == null) || (promoStr.length()==0)){
-                System.exit(-1);
+                exit(-1);
             }
 
 
 
             int batchSize = 10000;
             List<Promotion> promotionList = new ArrayList<>(batchSize);
-            int custId = 1000001;
+            int custId = startCustId;
+            int totalBatches=custVolume/batchSize;
             Promotion p = null;
             int insertedCount = 0;
             int totalCount=0;
-            for (int batch = 1; batch <= 500; batch++){
+            for (int batch = 1; batch <= totalBatches; batch++){
                 for (int ct = 1; ct <= batchSize; ct++) {
                     promotionList.add(new Promotion(StringUtils.leftPad(Integer.toString(custId), 9, "0"), promoStr));
                     custId++;

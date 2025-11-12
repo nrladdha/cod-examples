@@ -1,4 +1,4 @@
-package com.cloudera.cod.example;
+    package com.cloudera.cod.thickclient;
 
 import com.cloudera.cod.example.dao.PromotionDAO;
 import com.cloudera.cod.example.model.Promotion;
@@ -33,7 +33,7 @@ public class PromotionApplication {
         try {
             // Step 1: Establish connection to Phoenix
             logger.info("=== Step 1: Connecting to Apache Phoenix ===");
-            connection = PhoenixConnectionManager.getConnection();
+            connection = PhoenixConnectionManager.getConnection(true);
             logger.info("Successfully connected to Phoenix");
             
             // Create DAO instance

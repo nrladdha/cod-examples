@@ -37,9 +37,6 @@ public class Promotion {
     
     @Override
     public String toString() {
-        return "Promotion{" +
-                "custId='" + custId + '\'' +
-                ", promotions='" + promotions + '\'' +
-                '}';
+        return new StringBuffer("{\"custId\"=\"").append(custId).append("\"").append(", \"promotions\"=\"").append(promotions).append("\"}").toString();
     }
 }

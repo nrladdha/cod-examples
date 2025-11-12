@@ -1,4 +1,4 @@
-package com.cloudera.cod.example;
+package com.cloudera.cod.thickclient;
 
 import com.cloudera.cod.example.dao.PromotionDAO;
 import com.cloudera.cod.example.model.Promotion;
