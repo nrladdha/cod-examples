@@ -9,13 +9,13 @@
 # Usage:
 #   ./build_lambda_layer_multiarch.sh [x86_64|arm64]
 #
-# Default: arm64
+# Default: x86_64
 ##############################################################################
 
 set -e  # Exit on error
 
 # Architecture selection
-ARCH="${1:-arm64}"  # Default to arm64 if not specified
+ARCH="${1:-x86_64}"  # Default to arm64 if not specified
 
 if [[ "$ARCH" != "x86_64" && "$ARCH" != "arm64" ]]; then
     echo "ERROR: Invalid architecture. Use 'x86_64' or 'arm64'"
@@ -119,18 +119,7 @@ echo "=========================================="
 echo ""
 echo "Next steps:"
 echo "1. Upload this layer to AWS Lambda:"
-echo "   aws lambda publish-layer-version \\"
-echo "     --layer-name $LAYER_NAME \\"
-echo "     --description 'Phoenix DB dependencies ($ARCH)' \\"
-echo "     --zip-file fileb://$LAYER_ZIP \\"
-echo "     --compatible-runtimes python${PYTHON_VERSION} \\"
-echo "     --compatible-architectures $ARCH"
-echo ""
 echo "2. Make sure your Lambda function uses the same architecture:"
-echo "   aws lambda get-function-configuration \\"
-echo "     --function-name YOUR_FUNCTION_NAME \\"
-echo "     --query 'Architectures'"
-echo ""
 echo "3. Attach the layer to your Lambda function"
 echo "=========================================="
 

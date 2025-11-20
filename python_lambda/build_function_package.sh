@@ -4,7 +4,7 @@
 # AWS Lambda Function Package Builder
 # 
 # This script creates a deployment package with ONLY the function code.
-# Dependencies should be provided via a Lambda layer (use build_lambda_layer.sh)
+# Dependencies should be provided via a Lambda layer (use build_lambda_layer_multiarch.sh)
 ##############################################################################
 
 set -e  # Exit on error
