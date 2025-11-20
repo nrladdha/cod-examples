@@ -2,6 +2,7 @@ package com.cloudera.cod.thickclient;
 
 import com.cloudera.cod.example.dao.PromotionDAO;
 import com.cloudera.cod.example.model.Promotion;
+import com.cloudera.cod.example.util.ApplicationPropertyLoader;
 import com.cloudera.cod.example.util.PhoenixConnectionManager;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -39,6 +41,8 @@ public class PromotionLoader {
         Connection connection = null;
         
         try {
+
+            Properties prop= ApplicationPropertyLoader.builder().build();
             // Configuration
             int startCustId = args.length > 0 ? Integer.parseInt(args[0]) : 1;
             int custVolume = args.length > 1 ? Integer.parseInt(args[1]) : 1000000;
@@ -70,8 +74,8 @@ public class PromotionLoader {
             // Step 2: Create table
 
             logger.info("\n=== Step 2: Creating PROMOTIONS table ===");
-            promotionDAO.createTable();
-            logger.info("Table structure: CUST_ID VARCHAR(9) PRIMARY KEY, PROMOTIONS VARCHAR");
+            promotionDAO.createTable(Integer.parseInt(prop.getProperty("table.salt.buckets")));
+            logger.info("Table created : TEST1.PROMOTIONS (CUST_ID VARCHAR(9), PROMOTIONS VARCHAR)");
 
             // Step 3: Insert single promotion
 

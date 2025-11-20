@@ -3,6 +3,7 @@ package com.cloudera.cod.example.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -26,11 +27,14 @@ public class PhoenixConnectionManager {
         
     static {
         try {
-            Properties props = new Properties();
-            InputStream inputStream = PhoenixConnectionManager.class.getResourceAsStream("/application.properties");
-            props.load(inputStream);
 
+            Properties props = ApplicationPropertyLoader.builder().build();
             jdbcUrl = props.getProperty("cod.jdbc.url");
+
+            if (jdbcUrl==null || jdbcUrl.trim().length()==0){
+                System.out.println("ERROR - cod.jdbc.url property is not defined in application.properties file.");
+                System.exit(-1);
+            }
 
             // Load Phoenix JDBC driver
 

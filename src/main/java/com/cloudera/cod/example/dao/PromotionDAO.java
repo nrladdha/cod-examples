@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +22,12 @@ public class PromotionDAO {
     }
     
     public void createSchema() throws SQLException {
-        String createSchemaSQL = "CREATE SCHEMA IF NOT EXISTS TEST1" ;
+        String createSchemaSQL = "CREATE SCHEMA IF NOT EXISTS TEST1";
         
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(createSchemaSQL);
             connection.commit();
-            logger.info("TEST1 schema created successfully");
+            logger.info(" schema created successfully");
         } catch (SQLException e) {
             connection.rollback();
             logger.error("Failed to create TEST1 schema", e);
@@ -43,12 +42,12 @@ public class PromotionDAO {
      * 
      * @throws SQLException if table creation fails
      */
-    public void createTable() throws SQLException {
-        String createTableSQL = 
+    public void createTable(int saltBuckets) throws SQLException {
+        String createTableSQL =
             "CREATE TABLE IF NOT EXISTS TEST1.PROMOTIONS (" +
             "    CUST_ID VARCHAR(9) NOT NULL PRIMARY KEY, " +
             "    PROMOTIONS VARCHAR" +
-            ")";
+            ") SALT_BUCKETS = "+saltBuckets;
         
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(createTableSQL);

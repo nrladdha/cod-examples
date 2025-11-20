@@ -1,9 +1,0 @@
-
-Client {
-  com.sun.security.auth.module.Krb5LoginModule required
-  storeKey=true
-  useKeyTab=true
-  useTicketCache=false
-  keyTab="./ps-sandbox-aws-srv_nl_machineuser.keytab"
-  principal = "srv_nl_machineuser";
-};

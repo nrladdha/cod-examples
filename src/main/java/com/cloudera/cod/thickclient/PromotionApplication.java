@@ -2,6 +2,7 @@
 
 import com.cloudera.cod.example.dao.PromotionDAO;
 import com.cloudera.cod.example.model.Promotion;
+import com.cloudera.cod.example.util.ApplicationPropertyLoader;
 import com.cloudera.cod.example.util.PhoenixConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +11,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
-/**
+    /**
  * Main application demonstrating Apache Phoenix thick client operations
  * with PROMOTIONS table
  * 
@@ -41,8 +43,9 @@ public class PromotionApplication {
 
  */
             // Step 1: Establish connection to Phoenix
+            Properties prop= ApplicationPropertyLoader.builder().build();
             logger.info("=== Step 1: Connecting to Apache Phoenix ===");
-            connection = PhoenixConnectionManager.getConnection(true);
+            connection = PhoenixConnectionManager.getConnection(prop.getProperty("cod.jdbc.url"),true);
             logger.info("Successfully connected to Phoenix");
             
             // Create DAO instance
@@ -52,8 +55,9 @@ public class PromotionApplication {
           
                 logger.info("\n=== Step 2: Creating PROMOTIONS table ===");
                 promotionDAO.createSchema();
-                promotionDAO.createTable();
-                logger.info("Table structure: CUST_ID VARCHAR(9) PRIMARY KEY, PROMOTIONS VARCHAR");
+
+                promotionDAO.createTable(Integer.parseInt(prop.getProperty("table.salt.buckets")));
+                logger.info("Table created : TEST1.PROMOTIONS (CUST_ID VARCHAR(9), PROMOTIONS VARCHAR)");
          
             // Step 3: Insert single promotion
 
