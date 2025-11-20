@@ -31,6 +31,15 @@ public class PromotionApplication {
         Connection connection = null;
         
         try {
+/*
+            ProcessBuilder pb = new ProcessBuilder(
+                    "kinit",  // From Lambda layer
+                    "-kt", "ps-sandbox-aws-srv_nl_machineuser.keytab",
+                    "srv_nl_machineuser"
+            );
+            pb.start();
+
+ */
             // Step 1: Establish connection to Phoenix
             logger.info("=== Step 1: Connecting to Apache Phoenix ===");
             connection = PhoenixConnectionManager.getConnection(true);

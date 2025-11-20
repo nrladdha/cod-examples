@@ -90,6 +90,7 @@ public class PromotionLoader {
             Path path = Paths.get("input_data.txt");
             BufferedReader reader = Files.newBufferedReader(path);
             String promoStr = reader.readLine();
+
             logger.info("\npromoStr :"+promoStr);
             if ((promoStr == null) || (promoStr.length()==0)){
                 exit(-1);
