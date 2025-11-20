@@ -1,0 +1,18 @@
+# AWS Lambda Requirements for Phoenix Lambda Function
+
+# Phoenix DB Driver
+phoenixdb==1.2.2
+
+# Required dependencies for phoenixdb
+protobuf<6.0,>=5.0
+requests
+urllib3
+
+# GSSAPI support (required even for BASIC auth due to phoenixdb imports)
+requests-gssapi>=1.2.0
+gssapi>=1.6.0
+
+# Optional but recommended for better performance
+# Note: Some packages may need to be compiled for Lambda environment
+# Use Amazon Linux 2 or docker to build the deployment package
+
