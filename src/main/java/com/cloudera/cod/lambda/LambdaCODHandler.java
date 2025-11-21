@@ -8,14 +8,8 @@ import com.cloudera.cod.example.dao.PromotionDAO;
 import com.cloudera.cod.example.util.PhoenixConnectionManager;
 import com.cloudera.cod.example.model.Promotion;
 
-import javax.security.auth.Subject;
-import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.Process;
-import java.lang.Runtime;
-import java.security.PrivilegedAction;
-import java.sql.Connection;
 
 /**
  * AWS Lambda handler for Phoenix thick client with Kerberos authentication
@@ -26,11 +20,10 @@ public class LambdaCODHandler implements RequestHandler<LambdaCODHandler.Custome
     public static PromotionDAO promotionDAO=null;
     public static String jdbcUrl=null;
 
-    public record CustomerRequest(String cust_id) {}
     /**
      * Customer request POJO
      */
-   /* public static class CustomerRequest {
+    public static class CustomerRequest {
         private String cust_id;
 
         public CustomerRequest() {}
@@ -51,7 +44,7 @@ public class LambdaCODHandler implements RequestHandler<LambdaCODHandler.Custome
         public String toString() {
             return "CustomerRequest{cust_id='" + cust_id + "'}";
         }
-    } */
+    }
 
     /**
      * Initialize the PromotionDAO with Phoenix connection
@@ -133,7 +126,7 @@ public class LambdaCODHandler implements RequestHandler<LambdaCODHandler.Custome
     public String handleRequest(CustomerRequest event, Context context) {
         try {
             LambdaLogger logger = context.getLogger();
-            logger.log("Processing request for customer: " + event.cust_id());
+            logger.log("Processing request for customer: " + event.getCust_id());
 
             if (promotionDAO==null){
                 context.getLogger().log("Failed to initiate database connection. jdbcURL :  "+jdbcUrl);
@@ -141,15 +134,15 @@ public class LambdaCODHandler implements RequestHandler<LambdaCODHandler.Custome
             }
             // Measure query performance
             long startTime = System.nanoTime();
-            Promotion retrievedPromo = promotionDAO.getPromotionById(event.cust_id());
+            Promotion retrievedPromo = promotionDAO.getPromotionById(event.getCust_id());
             long endTime = System.nanoTime();
             long responseTime = (endTime - startTime) / 1000000; // Convert to ms
             // Place your Kerberos-enabled code here (e.g., GSS-API calls,
             // Hadoop access, etc.)
 
             if (retrievedPromo == null) {
-                logger.log("No promotion found for customer: " + event.cust_id());
-                return"{\"error\": \"Customer not found\", \"cust_id\": \"" + event.cust_id() + "\"}";
+                logger.log("No promotion found for customer: " + event.getCust_id());
+                return"{\"error\": \"Customer not found\", \"cust_id\": \"" + event.getCust_id() + "\"}";
             }
 
             logger.log("Event: " + event.toString() + ", Customer record: " + retrievedPromo.toString() +

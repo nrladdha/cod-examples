@@ -45,7 +45,7 @@ public class PromotionApplication {
             // Step 1: Establish connection to Phoenix
             Properties prop= ApplicationPropertyLoader.builder().build();
             logger.info("=== Step 1: Connecting to Apache Phoenix ===");
-            connection = PhoenixConnectionManager.getConnection(prop.getProperty("cod.jdbc.url"),true);
+            connection = PhoenixConnectionManager.getConnection(prop.getProperty(ApplicationPropertyLoader.COD_JDBC_URL),true);
             logger.info("Successfully connected to Phoenix");
             
             // Create DAO instance
@@ -56,7 +56,7 @@ public class PromotionApplication {
                 logger.info("\n=== Step 2: Creating PROMOTIONS table ===");
                 promotionDAO.createSchema();
 
-                promotionDAO.createTable(Integer.parseInt(prop.getProperty("table.salt.buckets")));
+                promotionDAO.createTable(Integer.parseInt(prop.getProperty(ApplicationPropertyLoader.TABLE_SALT_BUCKETS)));
                 logger.info("Table created : TEST1.PROMOTIONS (CUST_ID VARCHAR(9), PROMOTIONS VARCHAR)");
          
             // Step 3: Insert single promotion

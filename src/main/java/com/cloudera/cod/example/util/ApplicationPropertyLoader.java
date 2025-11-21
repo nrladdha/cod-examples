@@ -1,6 +1,5 @@
 package com.cloudera.cod.example.util;
 
-import org.apache.phoenix.shaded.com.sun.jersey.json.impl.provider.entity.JSONArrayProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,12 +15,21 @@ public class ApplicationPropertyLoader {
 
     private static final Logger logger = LoggerFactory.getLogger(ApplicationPropertyLoader.class);
 
+    public static final String COD_JDBC_URL="cod.jdbc.url";
+    public static final String TABLE_SALT_BUCKETS="table.salt.buckets";
+    public static final String CLIENT_ENDPOINT_URL="client.endpoint.url";
+
+    private static final String APP_PROPERTIES_FILE_PATH="filepath";
+
+
+
     ArrayList<String> requiredKeys=null;
 
     private ApplicationPropertyLoader(){
         requiredKeys=new ArrayList<String>();
-        requiredKeys.add("cod.jdbc.url");
-        requiredKeys.add("table.salt.buckets");
+        requiredKeys.add(COD_JDBC_URL);
+        requiredKeys.add(TABLE_SALT_BUCKETS);
+        requiredKeys.add(CLIENT_ENDPOINT_URL);
 
 
     }
@@ -32,21 +40,33 @@ public class ApplicationPropertyLoader {
             return instance;
         }
     }
-    public Properties build() throws IOException {
+    public Properties build() {
         Properties prop=new Properties();
-        String filePath=System.getProperty("filepath");
+        String filePath=System.getProperty(APP_PROPERTIES_FILE_PATH);
         logger.info("filePath : "+filePath);
 
         if (filePath ==null || filePath.trim().length()==0){
             logger.error("ERROR - filepath variable is not set. use -Dfilepath=<file-to-application.properties file>.");
             System.exit(-1);
         }
-        InputStream inputStream = new FileInputStream(filePath);
+        try {
+            InputStream inputStream = new FileInputStream(filePath);
         if (inputStream==null) {
             logger.error("ERROR - Could not load application.properties file.");
             System.exit(-1);
         }
-        prop.load(inputStream);
+
+            prop.load(inputStream);
+        }catch (FileNotFoundException fnfException){
+            logger.error("ERROR - Failed to find application.properties file. "+fnfException.getMessage());
+            fnfException.printStackTrace();
+            System.exit(-1);
+        }catch (IOException ioException){
+            logger.error("ERROR - Failed to build property object using application.properties file. "+ioException.getMessage());
+            ioException.printStackTrace();
+            System.exit(-1);
+        }
+
 
         for (String requiredKey : requiredKeys){
             if (prop.containsKey(requiredKey)){

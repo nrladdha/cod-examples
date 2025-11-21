@@ -3,13 +3,10 @@ package com.cloudera.cod.example.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.io.InputStream; 
-import java.io.IOException;
 
 /**
  * Phoenix Connection Manager for managing JDBC connections to Apache Phoenix
@@ -44,9 +41,6 @@ public class PhoenixConnectionManager {
         } catch (ClassNotFoundException e) {
             logger.error("Failed to load Phoenix JDBC driver", e);
             throw new RuntimeException("Phoenix JDBC driver not found", e);
-        }catch (IOException e) {
-            logger.error("Failed to load application.properties", e);
-            throw new RuntimeException("applicatiion.properties not found", e);
         }
     }
 

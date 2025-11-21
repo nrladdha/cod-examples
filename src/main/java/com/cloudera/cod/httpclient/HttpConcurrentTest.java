@@ -1,9 +1,11 @@
 package com.cloudera.cod.httpclient;
 
+import com.cloudera.cod.example.util.ApplicationPropertyLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -11,6 +13,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
@@ -33,6 +36,8 @@ public class HttpConcurrentTest {
     
     // Pattern to extract CODreqduration from JSON response
     private static final Pattern COD_DURATION_PATTERN = Pattern.compile("\"CODreq_duration\"\\s*:\\s*\"([0-9.]+)\"");
+    private  static Properties props= ApplicationPropertyLoader.builder().build();
+
 
 
 
@@ -53,6 +58,9 @@ public class HttpConcurrentTest {
      * Execute the multi-threaded test
      */
     public void execute() {
+
+
+
         logger.info("Starting concurrent test with {} threads, {} queries per thread",
             threadCount, iterationsPerThread);
         
@@ -186,7 +194,7 @@ public class HttpConcurrentTest {
     private class PromotionQueryTask implements Callable<ThreadResult> {
         private final int threadId;
 
-        private final String endPointUrl = "https://x2owmptl3c.execute-api.us-east-2.amazonaws.com/default/testphoenixdb-x86_64?cust_id=";
+        private final String endPointUrl = props.getProperty(ApplicationPropertyLoader.CLIENT_ENDPOINT_URL);
 
         public PromotionQueryTask(int threadId) {
             this.threadId = threadId;
